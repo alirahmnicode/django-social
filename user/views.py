@@ -17,7 +17,12 @@ class ActivateAcoountView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, **kwrags):
         # get new code for activate account
-        pass
+        if request.user.is_active_account:
+            return Response('this account is activated', status=status.HTTP_200_OK)
+        else:
+            code = Code(self.request, digit=6, save=True)
+            code = code.generator()
+            return Response(data={'code':code}, status=status.HTTP_200_OK)
 
     def post(self, request, **kwrags):
         # activate account
@@ -27,6 +32,8 @@ class ActivateAcoountView(APIView):
         if int(activate_code) == int(user_code):
             user.is_active_account = True
             user.save()
-            return Response('account is activates.', status=status.HTTP_200_OK)
+            # delete code from session
+            Code(request).delete_code()
+            return Response('account is activated.', status=status.HTTP_200_OK)
         else:
             return Response('code is wrange!', status=status.HTTP_400_BAD_REQUEST)
