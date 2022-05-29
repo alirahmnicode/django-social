@@ -1,7 +1,7 @@
 import random
 
 class Code:
-    def __init__(self, request, digit:int, save:bool) -> None:
+    def __init__(self, request, digit=6, save=False) -> None:
         self.request = request
         self.digit = digit
         self.code = None
@@ -18,4 +18,4 @@ class Code:
         self.request.session['code'] = self.code
 
     def delete_code(self):
-        pass
+        self.request.session['code'].delete()
