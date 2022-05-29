@@ -1,3 +1,4 @@
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 from . import views
 
@@ -5,4 +6,8 @@ router = DefaultRouter()
 
 router.register('signup', views.SignUpView)
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('activate/', views.ActivateAcoountView.as_view()),
+]
+
+urlpatterns += router.urls
