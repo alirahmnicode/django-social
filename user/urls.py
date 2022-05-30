@@ -8,6 +8,7 @@ router.register('signup', views.SignUpView)
 
 urlpatterns = [
     path('activate/', views.ActivateAcoountView.as_view()),
+    path('profile/<int:pk>/', views.ProfileView.as_view())
 ]
 
 urlpatterns += router.urls

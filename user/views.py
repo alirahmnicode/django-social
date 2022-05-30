@@ -2,8 +2,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import RetrieveUpdateAPIView
 from djoser.views import UserViewSet
+from .serializers import ProfileSerializers
+from .permissions import ObjectOwner
 from .register_code import Code
+from .models import Profile
+
 
 class SignUpView(UserViewSet):
     def perform_create(self, serializer):
@@ -12,6 +17,7 @@ class SignUpView(UserViewSet):
         # send sms
         # give jwt
         return super().perform_create(serializer)
+
 
 class ActivateAcoountView(APIView):
     permission_classes = [IsAuthenticated]
@@ -37,3 +43,15 @@ class ActivateAcoountView(APIView):
             return Response('account is activated.', status=status.HTTP_200_OK)
         else:
             return Response('code is wrange!', status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileView(RetrieveUpdateAPIView):
+    """
+    update and detail profile view
+    """
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializers
+    permission_classes = [ObjectOwner]
+
+   
+ 
