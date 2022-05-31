@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # third party pakage
     'rest_framework',
     'djoser',
+    'taggit',
     # local app
     'user.apps.UserConfig',
     'post.apps.PostConfig',
