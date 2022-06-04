@@ -24,3 +24,8 @@ url : domain/comments/ (post request)
 delete a comment =>
 url : domain/comments/pk/ (delete request)
 
+like and unlike =>
+url : domain/post/<int:post_pk>/like-unlike/
+
+search in username =>
+url : domain/user/search/q=username (get request)
