@@ -58,11 +58,8 @@ class SearchApiView(APIView):
     def get(self, request, **kwargs):
         username = request.GET.get('q')
         if username and username != '':
-            print(username)
             profiles = Profile.objects.filter(user__username__icontains=username)
-            print(profiles)
             serializer = ProfileSerializers(profiles, many=True)
-            print('3')
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(data='send correct username')
